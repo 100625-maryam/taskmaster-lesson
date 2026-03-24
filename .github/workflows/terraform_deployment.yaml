@@ -21,7 +21,7 @@ jobs:
         uses: dawidd6/action-download-artifact@v19
         with: 
           name: terraform-state
-          path: terraform/terraform.tfstate
+          path: terraform
 
       - name: terraform-init-plan-apply
         run: |
@@ -30,7 +30,6 @@ jobs:
           export AWS_REGION=us-east-1
 
           cd terraform
-          ls -al terraform.tfstate
           terraform init
           terraform plan
           terraform apply --auto-approve
