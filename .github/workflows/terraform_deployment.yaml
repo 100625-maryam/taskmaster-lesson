@@ -13,6 +13,7 @@ jobs:
       - name: debug
         run: |
           pwd
+          ls
 
       - name: Check code
         uses: actions/checkout@v4
