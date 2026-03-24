@@ -10,9 +10,16 @@ jobs:
   echo_hello_world:
     runs-on: ubuntu-latest
     steps:
+      - name: debug
+        run: |
+          pwd
+
       - name: Check code
         uses: actions/checkout@v4
-        
+
+      - name: debug
+        run: |
+          pwd
       # - name: debug-step
       #   continue-on-error: true
       #   run: |
