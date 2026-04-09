@@ -1,12 +1,16 @@
-name: Terraform destroy
-on:
+name: Terraform deployment
+
+on: 
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'terraform/**'
 
 jobs:
-  terraform_destroy:
-
-    name:  Terraform destroy
-
+  terraform_deployment:
+    name:  Terraform Plan (PR)
     runs-on: ubuntu-latest
 
     steps:
@@ -18,10 +22,10 @@ jobs:
             terraform_version: "1.14.4"
   
       - name: download-artifact
-
+        continue-on-error: true
         uses: dawidd6/action-download-artifact@v19
         with:
-          name: terraform-state
+          name: teraform-state
           path: terraform
           workflow: terraform_deployment.yml
       - name: terraform-init-plan
@@ -31,7 +35,7 @@ jobs:
           export AWS_REGION=us-east-1
           cd terraform
           terraform init
-          terraform destroy --auto-approve
+          terraform apply --auto-approve
 
       - name: upload-artifact
         continue-on-error: true
@@ -39,3 +43,4 @@ jobs:
         with:
           name: terraform-state
           path: terraform/terraform.tfstate
+          
