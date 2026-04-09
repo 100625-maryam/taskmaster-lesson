@@ -9,7 +9,7 @@ on:
       - 'terraform/**'
 
 jobs:
-  terraform_plan:
+  terraform_deployment:
     name:  Terraform Plan (PR)
     runs-on: ubuntu-latest
 
@@ -35,7 +35,7 @@ jobs:
           export AWS_REGION=us-east-1
           cd terraform
           terraform init
-          terraform destroy --auto-approve
+          terraform apply --auto-approve
 
       - name: upload-artifact
         continue-on-error: true
@@ -43,3 +43,4 @@ jobs:
         with:
           name: terraform-state
           path: terraform/terraform.tfstate
+          
